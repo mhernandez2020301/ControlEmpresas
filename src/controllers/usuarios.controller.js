@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
 
 //Empresas CRUD
+//Crear Empresa
 function RegistrarEmpresa(req, res) {
     var parametros = req.body;
     var usuarioModel = new Usuario();
@@ -33,6 +34,7 @@ function RegistrarEmpresa(req, res) {
     }
 }
 
+//Eliminar Empresa
 function EliminarEmpresa(req, res) {
     var idEmpresa = req.params.idEmpresa;
     if(req.user.rol == 'ADMINISTRADOR'){
@@ -47,6 +49,7 @@ function EliminarEmpresa(req, res) {
     }
 }
 
+//Editar Empresas
 function EditarEmpresa(req, res) {
     var idEmpresa = req.params.idEmpresa;
     var parametros = req.body;
@@ -63,6 +66,7 @@ function EditarEmpresa(req, res) {
     }
 }
 
+//Obtener Empresas
 function ObtenerEmpresas(req, res){
     Usuario.find({}, (err, empresaEncontrada)=>{
         return res.status(200).send({usuarios: empresaEncontrada});
@@ -92,6 +96,7 @@ function RegistrarAdmin() {
     })
 }
 
+//Registrar Empleado
 function RegistrarEmpleado(req, res) {
     var parametros = req.body;
     var empleadoModel = new Empleado();
@@ -112,7 +117,6 @@ function RegistrarEmpleado(req, res) {
         return res.status(500).send({ mensaje: 'No tiene los permisos' })
     }
 }
-
 
 function Login(req, res) {
     var parametros = req.body;

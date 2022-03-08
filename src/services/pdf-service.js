@@ -1,20 +1,20 @@
 const fs = require('fs');
 const res = require('express/lib/request');
 const doc = require('pdfkit');
-const Empleado = require('../controllers/empresas.controller')
+const Empleado = require('../models/empleado.model')
 const documentoempleados = new doc;
 
 function pdfEmpleados(){
 
-    Empleado.find({}, (err, empleadosPDF) => {
-
-        for (let i = 0; i < empleadosPDF.length; i++){
-            doc.pipe(fs.createWriteStream('pdf/Empleados.pdf'));
-            doc.text(`${empleadosPDF[i].nombre}, ${empleadosPDF[i].apellidos},
-                 ${empleadosPDF[i].idEmpresa}`)
+    Empleado.find({}, (err, empleadosEncontrados) => {
+        
+        for (let i = 0; i < empleadosEncontrados.length; i++){
+            doc.pipe(fs.createWriteStream('pdf/EmpleadosEmpresas.pdf'));
+            doc.text(`${empleadosEncontrados[i].nombre},  ${empleadosEncontrados[i].departamento},
+                ${empleadosEncontrados[i].correo}`) 
         }
         doc.end();
-    })
+    }) 
 }
 module.exports = {
     pdfEmpleados
